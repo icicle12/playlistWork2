@@ -16,4 +16,6 @@ registerPlugin({
             playlists.push.apply(playlists, check);
      }
         
-    
+    var message = ev.msg;
+    var start = message.substring(0, 15); //'createplaylists '
+    var start = message.substring(0, 8); //'createp '
