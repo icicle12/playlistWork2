@@ -10,7 +10,7 @@ registerPlugin({
 }, function (sinusbot, config) {
     sinusbot.on('chat', function (ev) {
     
-     var check = sinusbot.getVar(ev.clientUid);
+     var check = sinusbot.getVar('publicPlaylists');
      var playlists = [];
      if (typeof check != 'undefined') {
             playlists.push.apply(playlists, check);
