@@ -25,6 +25,6 @@ registerPlugin({
         sinusbot.chatServer(start);
         sinusbot.chatServer(start2);
     if ((start == '!createplaylist ') || (start2 == '!createp '))
-        sinusbot.chatServer(start);
+        sinusbot.chatChannel('hi guys');
     });
 });
