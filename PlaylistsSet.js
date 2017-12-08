@@ -5,7 +5,7 @@ registerPlugin({
     backends: ['ts3', 'discord'],
     engine: '>= 0.9.16',
     description: 'Allows clients to create playlists',
-    author: 'Shawye H. <shawye@ucla.edu>',
+    author: 'Shawye H. <shawye@ucla.edu> & Steven H. <stahill@ucsc.edu>',
     vars: []
 }, function (sinusbot, config) {
     sinusbot.on('chat', function (ev) {
