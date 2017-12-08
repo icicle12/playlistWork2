@@ -14,3 +14,6 @@ registerPlugin({
      var playlists = [];
      if (typeof check != 'undefined') {
             playlists.push.apply(playlists, check);
+     }
+        
+    
