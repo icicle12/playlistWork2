@@ -24,7 +24,7 @@ registerPlugin({
         //it appears that i made a slight mistake
         sinusbot.chatServer(start);
         sinusbot.chatServer(start2);
-    if ((start == 'createplaylist ') || (start2 == 'createp '))
+    if ((start == '!createplaylist') || (start2 == '!createp'))
         sinusbot.chatServer(start);
     });
 });
