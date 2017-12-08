@@ -19,12 +19,12 @@ registerPlugin({
      }
         
     var message = ev.msg;
-    var start = message.substring(0, 15); //'createplaylists '
-    var start2 = message.substring(0, 8); //'createp '
+    var start = message.substring(0, 16); //'createplaylists '
+    var start2 = message.substring(0, 9); //'createp '
         //it appears that i made a slight mistake
         sinusbot.chatServer(start);
         sinusbot.chatServer(start2);
-    if ((start == '!createplaylist') || (start2 == '!createp'))
+    if ((start == '!createplaylist ') || (start2 == '!createp '))
         sinusbot.chatServer(start);
     });
 });
