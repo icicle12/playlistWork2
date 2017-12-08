@@ -18,4 +18,8 @@ registerPlugin({
         
     var message = ev.msg;
     var start = message.substring(0, 15); //'createplaylists '
-    var start = message.substring(0, 8); //'createp '
+    var start2 = message.substring(0, 8); //'createp '
+    if ((start == 'createplaylists ') || (start2 == 'createp '))
+        sinusbot.chatChannel('hi guys');
+    });
+});
