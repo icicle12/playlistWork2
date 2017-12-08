@@ -11,6 +11,6 @@ registerPlugin({
     sinusbot.on('chat', function (ev) {
     
      var check = sinusbot.getVar(ev.clientUid);
-     var favs = [];
+     var playlists = [];
      if (typeof check != 'undefined') {
-            favs.push.apply(favs, check);
+            playlists.push.apply(playlists, check);
