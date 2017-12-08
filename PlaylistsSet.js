@@ -9,7 +9,9 @@ registerPlugin({
     vars: []
 }, function (sinusbot, config) {
     sinusbot.on('chat', function (ev) {
-    
+    if (ev.mode != 2)
+        return;
+        
      var check = sinusbot.getVar('publicPlaylists');
      var playlists = [];
      if (typeof check != 'undefined') {
@@ -20,8 +22,8 @@ registerPlugin({
     var start = message.substring(0, 15); //'createplaylists '
     var start2 = message.substring(0, 8); //'createp '
         //it appears that i made a slight mistake
-        sinusbot.chatChannel(start);
-        sinusbot.chatChannel(start2);
+        sinusbot.chatServer(start);
+        sinusbot.chatServer(start2);
     if ((start == 'createplaylist ') || (start2 == 'createp '))
         sinusbot.chatChannel('hi guys');
     });
