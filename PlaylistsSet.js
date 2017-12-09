@@ -82,7 +82,8 @@ registerPlugin({
             }
             //if the name check is ok, push the playlist name into playlists and set it as a key
             playlists.push(target);
-            sinusbot.setVar(target, playlists);    
+            sinusbot.unsetVar('publicPlaylists', playlists);
+            sinusbot.setVar('publicPlaylists', playlists);    
         }
         
     });
