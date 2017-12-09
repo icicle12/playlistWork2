@@ -15,11 +15,8 @@ registerPlugin({
             var Umsg = 'Unofficial Playlists: ';
             var playlists = sinusbot.playlists();
             var len = playlists.length;
-            for (i = 0; i < len; i++) {
-                var item = sinusbot.playlistGet(playlist[i]);
-                sinusbot.chatChannel('1');
-                Omsg = Omsg + item.name;
-                sinusbot.chatChannel(item.name);
+            for (var key in playlists) {
+                Omsg = Omsg + sinusbot.playlistGet(key).name;
                 if (i + 1 != len)
                     Omsg = Omsg + ', ';
             }
