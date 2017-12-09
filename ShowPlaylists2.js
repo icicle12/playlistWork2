@@ -17,6 +17,7 @@ vars: []
             var Umsg = 'Unofficial Playlists: ';
             var playlists = sinusbot.playlists();
             var len = playlists.length;
+            sinusbot.chatChannel('' + len);
             for (i = 0; i < len; i++) {
                 Omsg = Omsg + sinusbot.playlistGet(playlist[i]).name;
                 if (i + 1 != len)
