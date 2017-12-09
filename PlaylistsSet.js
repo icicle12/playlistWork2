@@ -16,7 +16,10 @@ registerPlugin({
             var playlists = sinusbot.playlists();
             var len = playlists.length;
             for (i = 0; i < len; i++) {
-                Omsg = Omsg + sinusbot.playlistGet(playlist[i]).name;
+                var item = sinusbot.playlistGet(playlist[i]);
+                sinusbot.chatChannel('1');
+                Omsg = Omsg + item.name;
+                sinusbot.chatChannel(item.name);
                 if (i + 1 != len)
                     Omsg = Omsg + ', ';
             }
