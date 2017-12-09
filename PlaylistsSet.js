@@ -52,7 +52,38 @@ registerPlugin({
         var message = ev.msg;
         var start = message.substring(0, 16); //'createplaylists '
         var start2 = message.substring(0, 9); //'createp '
-        if ((start == '!createplaylist ') || (start2 == '!createp '))
-            sinusbot.chatChannel('placeholder');
+        //target is the name of the playlist entered by the client 
+        var target = '';
+        if (start == '!createplaylist ') {
+            target = message.substring(16);
+            target = target.toLowerCase();
+        }
+        else if (start2 == '!createp ') {
+            target = message.substring(9);
+            target = target.toLowerCase();
+        }
+
+        //remove string empty spaces, 
+        //if entire string was empty or was empty spaces, return
+        while (target.charAt(0) == ' ') {
+            target = target.substring(1);
+        }
+        if (target == '')
+            return;
+
+        var len = playlists.length;
+        if ((start == '!createplaylist ') || (start2 == '!createp ')) {
+            //iterate through playlists to make sure that the name of the playlist being created isn't already in use
+            for (i = 0; i < len; i++) {
+                if (playlists [i] == target) {
+                    sinusbot.chatPrivate(ev.clientId, 'There is already a playlist with this name');
+                    return;
+                }
+            }
+            //if the name check is ok, push the playlist name into playlists and set it as a key
+            playlists.push(target);
+            sinusbot.setVar(target, playlists);    
+        }
+        
     });
 });
