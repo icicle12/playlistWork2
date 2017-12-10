@@ -14,9 +14,13 @@ registerPlugin({
             var Omsg = 'Official Playlists: ';
             var Umsg = 'Unofficial Playlists: ';
             var playlists = sinusbot.playlists();
-            var len = playlists.length;
+            var playlistNames = [];
             for (var key in playlists) {
-                Omsg = Omsg + sinusbot.playlistGet(key).name;
+                playlistNames.push(sinusbot.playlistGet(key).name);
+            }
+            var len = playlistNames.length;
+            for (i = 0; i < len; i++) {
+                Omsg = Omsg + playlistNames[i];
                 if (i + 1 != len)
                     Omsg = Omsg + ', ';
             }
