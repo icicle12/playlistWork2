@@ -15,7 +15,7 @@ registerPlugin({
             var Umsg = 'Unofficial Playlists: ';
             var playlists = sinusbot.playlists();
             var playlistNames = [];
-            for (var key in playlists) {
+            for (var key in playlists) { //playlists is fradulent so I need to place them into a real array
                 playlistNames.push(sinusbot.playlistGet(key).name);
             }
             var len = playlistNames.length;
@@ -24,6 +24,7 @@ registerPlugin({
                 if (i + 1 != len)
                     Omsg = Omsg + ', ';
             }
+            //check
             var check = sinusbot.getVar('publicPlaylists');
             var playlists2 = [];
             if ((typeof check != 'undefined') && (check.length != 0)) {
