@@ -35,7 +35,7 @@ registerPlugin({
             var len2 = playlists2.length;
             for (j = 0; j < len2; j++)
             {
-                Umsg = Umsg + playlists[j];
+                Umsg = Umsg + playlists2[j];
                 if (j + 1 != len2)
                     Umsg = Umsg + ', ';
             }
