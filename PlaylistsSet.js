@@ -42,9 +42,15 @@ registerPlugin({
             sinusbot.chatChannel(Omsg);
             sinusbot.chatChannel(Umsg);
         }
+        
+        if  (ev.msg == '!delaup') {
+            sinusbot.unsetVar('publicPlaylists');
+            return;
+        }
+        
         if (ev.mode != 2)
             return;
-
+        
         var check = sinusbot.getVar('publicPlaylists');
         var playlists = [];
         if (typeof check != 'undefined') {
@@ -85,7 +91,8 @@ registerPlugin({
             //if the name check is ok, push the playlist name into playlists and set it as a key
             playlists.push(target);
             sinusbot.unsetVar('publicPlaylists', playlists);
-            sinusbot.setVar('publicPlaylists', playlists);    
+            sinusbot.setVar('publicPlaylists', playlists);
+            return;
         }
         
     });
