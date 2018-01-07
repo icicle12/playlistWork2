@@ -58,6 +58,7 @@ registerPlugin({
         }
  
         var message = ev.msg;
+        var posi = message.lastIndexOf('.');
         var start = message.substring(0, 16); //'createplaylists '
         var start2 = message.substring(0, 9); //'createp '
         //target is the name of the playlist entered by the client 
