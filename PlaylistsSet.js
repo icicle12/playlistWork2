@@ -72,7 +72,6 @@ registerPlugin({
                         name.push(currentTrack);
                         sinusbot.unsetVar(playlistName);
                         sinusbot.setVar(playlistName, name);
-                        sinusbot.chatChannel(playlistName + 2);
                         return;
                     }
                 }
@@ -92,7 +91,7 @@ registerPlugin({
                         var msg = '';
                         var len = songs.length;
                         for (k = 0; k < len; k++) {
-                            msg = msg + favs[i].artist + ' - "' + favs[i].title + '"';
+                            msg = msg + songs[i].artist + ' - "' + songs[i].title + '"';
                             if (i != len - 1)
                                 msg = msg + ', ';
                         }
