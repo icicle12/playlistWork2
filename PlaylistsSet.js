@@ -66,7 +66,7 @@ registerPlugin({
         if ((end == '.addcurrent') || (end == '.addc')) {
             var playlistName = start3.substring (1);
             playlistName = playlistName.toLowerCase ();
-
+            sinusbot.chatChannel('break1');
             var publicPlaylists = sinusbot.getVar (publicPlaylists);
 
             for (i = 0; i < publicPlaylists.length; i++) 
@@ -77,6 +77,7 @@ registerPlugin({
                     name.push (currentTrack);
                     sinusbot.unsetVar (playlistName);
                     sinusbot.setVar (playlistName, name);
+                    sinusbot.chatChannel(playlistName);
                     return;
                 }
             }
