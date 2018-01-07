@@ -67,12 +67,12 @@ registerPlugin({
             var playlistName = start3.substring (1);
             playlistName = playlistName.toLowerCase ();
 
-            var publicPlaylists = sinusbot.getvar ('publicPlaylists');
+            var publicPlaylists = sinusbot.getVar ('publicPlaylists');
 
             for (i = 0; i < publicPlaylists.length; i++) 
             {
                 if (publicPlaylists[i] == playlistName) {
-                    var name = sinusbot.getvar ('playlistName');
+                    var name = sinusbot.getVar ('playlistName');
                     var currentTrack = sinusbot.getCurrentTrack ();
                     name.push (currentTrack);
                     sinusbot.unsetVar ('playlistName');
