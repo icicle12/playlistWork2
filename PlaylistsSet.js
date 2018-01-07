@@ -64,8 +64,25 @@ registerPlugin({
         var start3 = message.substring(0, posi);
         var end = message.substring(posi);
         if ((end == '.addcurrent') || (end == '.addc')) {
-            //steven code
-            //if start3 checks out, add song
+            var playlistName = start3.substring (1);
+            playlistName = playlistName.toLowerCase ();
+
+            sinusbot.getvar ('publicPlaylists');
+
+            for (i = 0; i < publicPlaylists.length; i++) 
+            {
+                if (publicPlaylists[i] == playlistName) {
+                    var name = sinusbot.getvar ('playlistName');
+                    var currentTrack = sinusbot.getCurrentTrack ();
+                    name.push (currentTrack);
+                    sinusbot.unsetVar ('playlistName');
+                    sinusbot.setVar ('playlistName', name);
+                    return;
+                }
+            }
+
+        sinusbot.chatPrivate (ev.clientId, 'There is no playlist with this name');
+        return;
             return;
         }
         var start = message.substring(0, 16); //'createplaylists '
@@ -105,27 +122,6 @@ registerPlugin({
             var empty = [];
             sinusbot.setVar(target, empty);
             return;
-        }
-        
-        var playlistName = start3.substring (1);
-        playlistName = playlistName.toLowerCase ();
-
-        sinusbot.getvar ('publicPlaylists');
-
-        for (i = 0; i < publicPlaylists.length; i++) 
-        {
-            if (publicPlaylists[i] == playlistName) {
-                sinusbot.getvar ('playlistName');
-                var currentTrack = sinusbot.getCurrentTrack ();
-                name.push (currentTrack);
-                sinusbot.unsetVar ('playlistName');
-                sinusbot.setVar ('playlistName', name);
-                return;
-            }
-        }
-
-        sinusbot.chatPrivate (ev.clientId, 'There is no playlist with this name');
-        return;
-        
+        }      
     });
 });
