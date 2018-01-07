@@ -84,6 +84,29 @@ registerPlugin({
             sinusbot.chatPrivate (ev.clientId, 'There is no playlist with this name');
             return;
         }
+        if ((end == '.songs') || (end == '.s')) {
+            var playlistName = start3.substring (1);
+            playlistName = playlistName.toLowerCase ();
+
+            var publicPlaylists = sinusbot.getVar ('publicPlaylists');
+
+            for (i = 0; i < publicPlaylists.length; i++) {
+                if (publicPlaylists[i] == playlistName) {
+                    var songs = sinusbot.getVar(playlistName);
+                    var msg = '';
+                    var len = songs.length;
+                    for (k = 0; k < len; k++) {
+                        msg = msg + favs[i].artist + ' - "' + favs[i].title + '"';
+                        if (i != len - 1)
+                        msg = msg + ', ';
+                    }
+                    sinusbot.chatChannel(msg);
+                    return;
+                }
+            }
+            sinusbot.chatPrivate (ev.clientId, 'There is no playlist with this name');
+            return;
+        }
         var start = message.substring(0, 16); //'createplaylists '
         var start2 = message.substring(0, 9); //'createp '
         //target is the name of the playlist entered by the client 
