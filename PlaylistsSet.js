@@ -57,91 +57,92 @@ registerPlugin({
 
         var message = ev.msg;
         var posi = message.lastIndexOf('.');
-        if (posi == -1)
-            return;
-        var start3 = message.substring(0, posi);
-        var end = message.substring(posi);
-        if ((end == '.addcurrent') || (end == '.addc')) {
-            var playlistName = start3.substring(1);
-            playlistName = playlistName.toLowerCase();
+        if (posi != -1) {
+            var start3 = message.substring(0, posi);
+            var end = message.substring(posi);
+            if ((end == '.addcurrent') || (end == '.addc')) {
+                var playlistName = start3.substring(1);
+                playlistName = playlistName.toLowerCase();
 
-            var publicPlaylists = sinusbot.getVar('publicPlaylists');
-            sinusbot.chatChannel(playlistName);
-            for (i = 0; i < publicPlaylists.length; i++) {
-                if (publicPlaylists[i] == playlistName) {
-                    var name = sinusbot.getVar(playlistName);
-                    var currentTrack = sinusbot.getCurrentTrack();
-                    name.push(currentTrack);
-                    sinusbot.unsetVar(playlistName);
-                    sinusbot.setVar(playlistName, name);
-                    sinusbot.chatChannel(playlistName);
-                    return;
-                }
-            }
-
-            sinusbot.chatPrivate(ev.clientId, 'There is no playlist with this name');
-            return;
-        }
-        if ((end == '.songs') || (end == '.s')) {
-            var playlistName = start3.substring(1);
-            playlistName = playlistName.toLowerCase();
-
-            var publicPlaylists = sinusbot.getVar('publicPlaylists');
-
-            for (i = 0; i < publicPlaylists.length; i++) {
-                if (publicPlaylists[i] == playlistName) {
-                    var songs = sinusbot.getVar(playlistName);
-                    var msg = '';
-                    var len = songs.length;
-                    for (k = 0; k < len; k++) {
-                        msg = msg + favs[i].artist + ' - "' + favs[i].title + '"';
-                        if (i != len - 1)
-                            msg = msg + ', ';
+                var publicPlaylists = sinusbot.getVar('publicPlaylists');
+                for (i = 0; i < publicPlaylists.length; i++) {
+                    if (publicPlaylists[i] == playlistName) {
+                        var name = sinusbot.getVar(playlistName);
+                        var currentTrack = sinusbot.getCurrentTrack();
+                        name.push(currentTrack);
+                        sinusbot.unsetVar(playlistName);
+                        sinusbot.setVar(playlistName, name);
+                        sinusbot.chatChannel(playlistName + 2);
+                        return;
                     }
-                    sinusbot.chatChannel(msg);
-                    return;
                 }
+
+                sinusbot.chatPrivate(ev.clientId, 'There is no playlist with this name');
+                return;
             }
-            sinusbot.chatPrivate(ev.clientId, 'There is no playlist with this name');
-            return;
-        }
-        var start = message.substring(0, 16); //'createplaylists '
-        var start2 = message.substring(0, 9); //'createp '
-        //target is the name of the playlist entered by the client 
-        var target = '';
-        if (start == '!createplaylist ') {
-            target = message.substring(16);
-            target = target.toLowerCase();
-        }
-        else if (start2 == '!createp ') {
-            target = message.substring(9);
-            target = target.toLowerCase();
-        }
+            if ((end == '.songs') || (end == '.s')) {
+                var playlistName = start3.substring(1);
+                playlistName = playlistName.toLowerCase();
 
-        //remove string empty spaces, 
-        //if entire string was empty or was empty spaces, return
-        while (target.charAt(0) == ' ') {
-            target = target.substring(1);
-        }
-        if (target == '')
-            return;
+                var publicPlaylists = sinusbot.getVar('publicPlaylists');
 
-        var len = playlists.length;
-        if ((start == '!createplaylist ') || (start2 == '!createp ')) {
-            //iterate through playlists to make sure that the name of the playlist being created isn't already in use
-            for (i = 0; i < len; i++) {
-                if (playlists[i] == target) {
-                    sinusbot.chatPrivate(ev.clientId, 'There is already a playlist with this name');
-                    return;
+                for (i = 0; i < publicPlaylists.length; i++) {
+                    if (publicPlaylists[i] == playlistName) {
+                        var songs = sinusbot.getVar(playlistName);
+                        var msg = '';
+                        var len = songs.length;
+                        for (k = 0; k < len; k++) {
+                            msg = msg + favs[i].artist + ' - "' + favs[i].title + '"';
+                            if (i != len - 1)
+                                msg = msg + ', ';
+                        }
+                        sinusbot.chatChannel(msg);
+                        return;
+                    }
                 }
+                sinusbot.chatPrivate(ev.clientId, 'There is no playlist with this name');
+                return;
             }
-            //if the name check is ok, push the playlist name into playlists and set it as a key
-            playlists.push(target);
-            sinusbot.unsetVar('publicPlaylists', playlists);
-            sinusbot.setVar('publicPlaylists', playlists);
-            var empty = [];
-            sinusbot.setVar(target, empty);
-            return;
+        }
+        else {
+            var start = message.substring(0, 16); //'createplaylists '
+            var start2 = message.substring(0, 9); //'createp '
+            //target is the name of the playlist entered by the client 
+            var target = '';
+            if (start == '!createplaylist ') {
+                target = message.substring(16);
+                target = target.toLowerCase();
+            }
+            else if (start2 == '!createp ') {
+                target = message.substring(9);
+                target = target.toLowerCase();
+            }
+
+            //remove string empty spaces, 
+            //if entire string was empty or was empty spaces, return
+            while (target.charAt(0) == ' ') {
+                target = target.substring(1);
+            }
+            if (target == '')
+                return;
+
+            var len = playlists.length;
+            if ((start == '!createplaylist ') || (start2 == '!createp ')) {
+                //iterate through playlists to make sure that the name of the playlist being created isn't already in use
+                for (i = 0; i < len; i++) {
+                    if (playlists[i] == target) {
+                        sinusbot.chatPrivate(ev.clientId, 'There is already a playlist with this name');
+                        return;
+                    }
+                }
+                //if the name check is ok, push the playlist name into playlists and set it as a key
+                playlists.push(target);
+                sinusbot.unsetVar('publicPlaylists', playlists);
+                sinusbot.setVar('publicPlaylists', playlists);
+                var empty = [];
+                sinusbot.setVar(target, empty);
+                return;
+            }
         }
     });
 });
