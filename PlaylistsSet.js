@@ -65,10 +65,19 @@ registerPlugin({
                 playlistName = playlistName.toLowerCase();
 
                 var publicPlaylists = sinusbot.getVar('publicPlaylists');
-                for (i = 0; i < publicPlaylists.length; i++) {
+                var len = publicPlaylists.length;
+                for (i = 0; i < len; i++) {
                     if (publicPlaylists[i] == playlistName) {
                         var name = sinusbot.getVar(playlistName);
                         var currentTrack = sinusbot.getCurrentTrack();
+                        var lenTrack = name.length;
+                        for (j = 0; j < lenTrack; j++) {
+                            if ((name[j].title == currentTrack.title) && (name[j].artist == currentTrack.artist))
+                            {
+                                sinusbot.chatPrivate(ev.clientId, 'This playlist already contains this song');
+                                return;
+                            }
+                        }
                         name.push(currentTrack);
                         sinusbot.unsetVar(playlistName);
                         sinusbot.setVar(playlistName, name);
@@ -84,8 +93,8 @@ registerPlugin({
                 playlistName = playlistName.toLowerCase();
 
                 var publicPlaylists = sinusbot.getVar('publicPlaylists');
-
-                for (i = 0; i < publicPlaylists.length; i++) {
+                var len = publicPlaylists.length;
+                for (i = 0; i < len; i++) {
                     if (publicPlaylists[i] == playlistName) {
                         var songs = sinusbot.getVar(playlistName);
                         var msg = '';
