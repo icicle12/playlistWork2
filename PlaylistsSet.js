@@ -92,6 +92,8 @@ registerPlugin({
             playlists.push(target);
             sinusbot.unsetVar('publicPlaylists', playlists);
             sinusbot.setVar('publicPlaylists', playlists);
+            var empty = [];
+            sinusbot.setVar(target, empty);
             return;
         }
         
