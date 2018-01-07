@@ -63,7 +63,7 @@ registerPlugin({
             return;
         var start3 = message.substring(0, posi);
         var end = message.substring(posi);
-                if ((end == '.addcurrent') || (end == '.addc')) {
+        if ((end == '.addcurrent') || (end == '.addc')) {
             //steven code
             //if start3 checks out, add song
             return;
