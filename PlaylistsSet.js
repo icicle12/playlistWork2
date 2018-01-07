@@ -67,7 +67,7 @@ registerPlugin({
             var playlistName = start3.substring (1);
             playlistName = playlistName.toLowerCase ();
 
-            sinusbot.getvar ('publicPlaylists');
+            var publicPlaylists = sinusbot.getvar ('publicPlaylists');
 
             for (i = 0; i < publicPlaylists.length; i++) 
             {
@@ -81,8 +81,7 @@ registerPlugin({
                 }
             }
 
-        sinusbot.chatPrivate (ev.clientId, 'There is no playlist with this name');
-        return;
+            sinusbot.chatPrivate (ev.clientId, 'There is no playlist with this name');
             return;
         }
         var start = message.substring(0, 16); //'createplaylists '
