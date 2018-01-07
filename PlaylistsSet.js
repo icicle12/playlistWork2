@@ -67,7 +67,7 @@ registerPlugin({
             var playlistName = start3.substring (1);
             playlistName = playlistName.toLowerCase ();
             sinusbot.chatChannel('break1');
-            var publicPlaylists = sinusbot.getVar (publicPlaylists);
+            var publicPlaylists = sinusbot.getVar ('publicPlaylists');
 
             for (i = 0; i < publicPlaylists.length; i++) 
             {
