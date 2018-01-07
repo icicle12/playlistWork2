@@ -63,6 +63,11 @@ registerPlugin({
             return;
         var start3 = message.substring(0, posi);
         var end = message.substring(posi);
+                if ((end == '.addcurrent') || (end == '.addc')) {
+            //steven code
+            //if start3 checks out, add song
+            return;
+        }
         var start = message.substring(0, 16); //'createplaylists '
         var start2 = message.substring(0, 9); //'createp '
         //target is the name of the playlist entered by the client 
