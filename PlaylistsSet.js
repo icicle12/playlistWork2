@@ -9,7 +9,9 @@ registerPlugin({
 
 }, function (sinusbot, config) {
     sinusbot.on('chat', function (ev) {
-        if (ev.msg == '!playlists') {
+        var message = ev.msg;
+        message = message.trim(); //trimmed
+        if (message == '!playlists') {
             var Omsg = 'Official Playlists: ';
             var Umsg = 'Unofficial Playlists: ';
             var playlists = sinusbot.playlists();
@@ -41,7 +43,7 @@ registerPlugin({
             sinusbot.chatChannel(Umsg);
         }
 
-        if (ev.msg == '!delaup') {
+        if (message == '!delaup') {
             sinusbot.unsetVar('publicPlaylists');
             return;
         }
@@ -55,7 +57,6 @@ registerPlugin({
             playlists.push.apply(playlists, check);
         }
 
-        var message = ev.msg;
         var posi = message.lastIndexOf('.');
         if (posi != -1) {
             var start3 = message.substring(0, posi);
