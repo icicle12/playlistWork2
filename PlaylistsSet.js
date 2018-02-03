@@ -106,7 +106,7 @@ registerPlugin({
                         }
                         for (k = 0; k < len; k++) {
                             msg = msg + songs[k].artist + ' - "' + songs[k].title + '"';
-                            if (i != len - 1)
+                            if (k != len - 1)
                                 msg = msg + ', ';
                         }
                         sinusbot.chatChannel(msg);
