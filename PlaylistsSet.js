@@ -105,7 +105,7 @@ registerPlugin({
                             return;
                         }
                         for (k = 0; k < len; k++) {
-                            msg = msg + songs[i].artist + ' - "' + songs[i].title + '"';
+                            msg = msg + songs[k].artist + ' - "' + songs[k].title + '"';
                             if (i != len - 1)
                                 msg = msg + ', ';
                         }
