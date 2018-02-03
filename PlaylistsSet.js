@@ -57,6 +57,26 @@ registerPlugin({
             playlists.push.apply(playlists, check);
         }
 
+        //Fisher-Yates (aka Knuth) Shuffle, taken from a stackoverflow website
+        function shuffle(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex;
+
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+
+            return array;
+        }
+
         var posi = message.lastIndexOf('.');
         if (posi != -1) {
             var start3 = message.substring(0, posi);
@@ -73,8 +93,7 @@ registerPlugin({
                         var currentTrack = sinusbot.getCurrentTrack();
                         var lenTrack = name.length;
                         for (j = 0; j < lenTrack; j++) {
-                            if ((name[j].title == currentTrack.title) && (name[j].artist == currentTrack.artist))
-                            {
+                            if ((name[j].title == currentTrack.title) && (name[j].artist == currentTrack.artist)) {
                                 sinusbot.chatPrivate(ev.clientId, 'This playlist already contains this song');
                                 return;
                             }
@@ -99,17 +118,46 @@ registerPlugin({
                     if (publicPlaylists[i] == playlistName) {
                         var songs = sinusbot.getVar(playlistName);
                         var msg = '';
-                        var len = songs.length;
-                        if (len == 0) {
+                        var len2 = songs.length;
+                        if (len2 == 0) {
                             sinusbot.chatChannel('There are no songs in this playlist');
                             return;
                         }
-                        for (k = 0; k < len; k++) {
+                        for (k = 0; k < len2; k++) {
                             msg = msg + songs[k].artist + ' - "' + songs[k].title + '"';
-                            if (k != len - 1)
+                            if (k != len2 - 1)
                                 msg = msg + ', ';
                         }
                         sinusbot.chatChannel(msg);
+                        return;
+                    }
+                }
+                sinusbot.chatPrivate(ev.clientId, 'There is no playlist with this name');
+                return;
+            }
+
+            if ((end == '.play') || (end == '.p')) {
+                var playlistName = start3.substring(1);
+                playlistName = playlistName.toLowerCase();
+
+                var publicPlaylists = sinusbot.getVar('publicPlaylists');
+                var len = publicPlaylists.length;
+                for (i = 0; i < len; i++) {
+                    if (publicPlaylists[i] == playlistName) {
+                        var songs = sinusbot.getVar(playlistName);
+                        var len2 = songs.length;
+                        if (len2 == 0) {
+                            sinusbot.chatChannel('There are no songs in this playlist');
+                            return;
+                        }
+                        songs = shuffle(songs);
+                        var m = 0;
+                        var q = setInterval(function () {
+                            sinusbot.queueAppend('track://' + songs[m].uuid);
+                            m++;
+                            if (m == len2)
+                                clearInterval(q);
+                        }, 250);
                         return;
                     }
                 }
