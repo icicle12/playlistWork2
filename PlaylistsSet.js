@@ -100,6 +100,8 @@ registerPlugin({
                         var songs = sinusbot.getVar(playlistName);
                         var msg = '';
                         var len = songs.length;
+                        if (len == 0)
+                            sinusbot.chatChannel('There are no songs in this playlist');
                         for (k = 0; k < len; k++) {
                             msg = msg + songs[i].artist + ' - "' + songs[i].title + '"';
                             if (i != len - 1)
