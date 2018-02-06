@@ -77,10 +77,13 @@ registerPlugin({
             return array;
         }
 
+        //finds the . separateor to find the correct argument
         var posi = message.lastIndexOf('.');
-        if (posi != -1) {
-            var start3 = message.substring(0, posi);
-            var end = message.substring(posi);
+        if (posi != -1) { //if we found the .
+            var start3 = message.substring(0, posi); //playlist name
+            var end = message.substring(posi); //the last few letters
+            
+            //add functionality
             if ((end == '.addcurrent') || (end == '.addc')) {
                 var playlistName = start3.substring(1);
                 playlistName = playlistName.toLowerCase();
@@ -108,6 +111,8 @@ registerPlugin({
                 sinusbot.chatPrivate(ev.clientId, 'There is no playlist with this name');
                 return;
             }
+            
+            //song list functionality
             if ((end == '.songs') || (end == '.s')) {
                 var playlistName = start3.substring(1);
                 playlistName = playlistName.toLowerCase();
@@ -136,6 +141,7 @@ registerPlugin({
                 return;
             }
 
+            //play functionality
             if ((end == '.play') || (end == '.p')) {
                 var playlistName = start3.substring(1);
                 playlistName = playlistName.toLowerCase();
@@ -150,9 +156,9 @@ registerPlugin({
                             sinusbot.chatChannel('There are no songs in this playlist');
                             return;
                         }
-                        songs = shuffle(songs);
+                        songs = shuffle(songs); //randomize
                         var m = 0;
-                        var q = setInterval(function () {
+                        var q = setInterval(function () { //used to successfully append
                             sinusbot.queueAppend('track://' + songs[m].uuid);
                             m++;
                             if (m == len2)
