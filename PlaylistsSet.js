@@ -43,10 +43,10 @@ registerPlugin({
             sinusbot.chatChannel(Umsg);
         }
 
-        if (message == '!delaup') {
-            sinusbot.unsetVar('publicPlaylists');
-            return;
-        }
+        //if (message == '!delaup') {
+        //    sinusbot.unsetVar('publicPlaylists');
+        //    return;
+        //}
 
         if (ev.mode != 2)
             return;
