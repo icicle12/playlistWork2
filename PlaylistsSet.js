@@ -77,12 +77,12 @@ registerPlugin({
             return array;
         }
 
-         //my search function. takes an array and a search term, then returns the positon of first element of the 
+        //my search function. takes an array and a search term, then returns the positon of first element of the 
         //array that is a substring of the term, or (if no such element exits), returns the position of the first element 
         //that contains terms as a substring closest to the beginning of array, or -1 if no element meets either of those criteria
         //CASE SENSITIVE!!! MAKE ALL ARGUMENTS LOWERCASE IF YOU WANT IT TO BE CASE INSENSITIVE!
         //returns position in searchArray with term.
-            function look(searchArray, term) {
+        function look(searchArray, term) {
             var len = searchArray.length;
             var namePos = [];
             for (i = 0; i < len; i++) {
@@ -104,8 +104,8 @@ registerPlugin({
             return namePos[0].pos; //return that position
         }
 
-            //same function as above, but returns the sorted array instead
-            function lookArr(searchArray, term) {
+        //same function as above, but returns the sorted array instead
+        function lookArr(searchArray, term) {
             var len = searchArray.length;
             var namePos = [];
             for (i = 0; i < len; i++) {
@@ -130,9 +130,10 @@ registerPlugin({
         //finds the . separateor to find the correct argument
         var posi = message.lastIndexOf('.');
         if (posi != -1) { //if we found the .
+            sinusbot.chatChannel('found');
             var start3 = message.substring(0, posi); //playlist name
             var end = message.substring(posi); //the last few letters
-            
+
             //add functionality
             if ((end == '.addcurrent') || (end == '.addc')) {
                 var playlistName = start3.substring(1);
@@ -161,9 +162,10 @@ registerPlugin({
                 sinusbot.chatPrivate(ev.clientId, 'There is no playlist with this name');
                 return;
             }
-            
+
             //song list functionality
             if ((end == '.songs') || (end == '.s')) {
+                sinsubot.chatChannel('found');
                 var playlistName = start3.substring(1);
                 playlistName = playlistName.toLowerCase();
 
@@ -220,18 +222,18 @@ registerPlugin({
                 sinusbot.chatPrivate(ev.clientId, 'There is no playlist with this name');
                 return;
             }
-            
-            
+
+
             //ARGUMENT COMMANDS GO HERE
             var posiSpace = end.lastIndexOf(' ');
             if (posiSpace == -1)
                 return;
             var start4 = end.substring(0, posiSpace); //arg command
             var end2 = end.substring(posiSpace); // target string
-            if ((start4 == '.search') || (start4 == '.s)) {
+            if ((start4 == '.search') || (start4 == '.s')) {
                 var playlistName = start3.substring(1);
                 playlistName = playlistName.toLowerCase();
-                
+
                 var publicPlaylists = sinusbot.getVar('publicPlaylists');
                 var len = publicPlaylists.length;
                 for (i = 0; i < len; i++) {
@@ -242,10 +244,33 @@ registerPlugin({
                             sinusbot.chatChannel('There are no songs in this playlist');
                             return;
                         }
-                        
+                        var artists = [];
+                        var titles = [];
+                        for (j = 0; j < len2; j++) {
+                            var artistTemp = songs[j].artist;
+                            var titletemp = songs[j].title;
+                            artistTemp = artistTemp.toLowerCase();
+                            titleTemp = titleTemp.toLowerCase();
+                            artists.push(artistTemp);
+                            titles.push(titleTemp);
+                        }
+                        var artistpositions = lookArr(artists, end2);
+                        var titlepositions = lookArr(titles, end2);
+
+                        var lenArtist = artistpositions.length;
+                        var lenTitle = titlepositions.length;
+                        for (j = 0; j < titlepositions; j++) {
+                            sinusbot.chatPrivate(ev.clientId, '' + songs[titlepositions[j]]);
+                        }
+                        for (j = 0; j < lenArtist; j++) {
+                            sinsubot.chatPrivate(ev.clientId, '' + songs[artistpositions[j]]);
+                        }
+                        return;
+                    }
+                }
+                sinusbot.chatPrivate(ev.clientId, 'There is no playlist with this name');
+                return;
             }
-            sinusbot.chatPrivate(ev.clientId, 'There is no playlist with this name');
-            return;                            
         }
         else {
             var start = message.substring(0, 16); //'createplaylists '
@@ -289,3 +314,4 @@ registerPlugin({
         }
     });
 });
+
