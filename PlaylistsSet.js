@@ -113,8 +113,7 @@ registerPlugin({
             }
             
             //song list functionality
-            var end2 = end.trim();
-            if ((end2 == '.songs') || (end2 == '.s')) {
+            if ((end == '.songs') || (end == '.s')) {
                 var playlistName = start3.substring(1);
                 playlistName = playlistName.toLowerCase();
 
