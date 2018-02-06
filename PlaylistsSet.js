@@ -77,7 +77,7 @@ registerPlugin({
             return array;
         }
 
-             //my search function. takes an array and a search term, then returns the positon of first element of the 
+         //my search function. takes an array and a search term, then returns the positon of first element of the 
         //array that is a substring of the term, or (if no such element exits), returns the position of the first element 
         //that contains terms as a substring closest to the beginning of array, or -1 if no element meets either of those criteria
         //CASE SENSITIVE!!! MAKE ALL ARGUMENTS LOWERCASE IF YOU WANT IT TO BE CASE INSENSITIVE!
@@ -104,6 +104,28 @@ registerPlugin({
             return namePos[0].pos; //return that position
         }
 
+            //same function as above, but returns the sorted array instead
+            function lookArr(searchArray, term) {
+            var len = searchArray.length;
+            var namePos = [];
+            for (i = 0; i < len; i++) {
+                var spot = searchArray[i].indexOf(term); //indexOf() finds the matchin substring
+                if (spot == 0) { //if element begins with that substring
+                    return i; //return it
+                }
+                else {
+                    if (spot == -1) //element not found, continue
+                        continue;
+                    else
+                        // {itemA: A, itemB: B} Think of it like a struct with 2 items, A and B, which are names itemA and itemB
+                        namePos.push({ pos: i, value: spot }) //found but not beginning, place in temporary array with how close it is to the string
+                }
+            }
+            if (namePos.length < 1) //if there is nothing in the temp array, nothing was found. return -1
+                return -1;
+            namePos.sort(function (a, b) { return a.value - b.value }); //sort to find element with lowest positon
+            return namePos; //return that array. Namepos is an array of pos-spots, with pos being the positions of the items in the array
+        }
         
         //finds the . separateor to find the correct argument
         var posi = message.lastIndexOf('.');
