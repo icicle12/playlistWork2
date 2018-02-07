@@ -43,10 +43,18 @@ registerPlugin({
             sinusbot.chatChannel(Umsg);
         }
 
-        //if (message == '!delaup') {
-        //    sinusbot.unsetVar('publicPlaylists');
-        //    return;
-        //}
+        if (message == '!delaup') {
+        var check = sinusbot.getVar('publicPlaylists');
+        var playlists2 = [];
+        if ((typeof check != 'undefined') && (check.length != 0)) {
+            playlists2.push.apply(playlists2, check);
+        }
+        var leng = playlists2.length;
+        for (i = 0; i < leng; i++)
+            sinusbot.unsetVar(playlists2[i]);
+            sinusbot.unsetVar('publicPlaylists');
+            return;
+        }
 
         if (ev.mode != 2)
             return;
@@ -126,11 +134,10 @@ registerPlugin({
             namePos.sort(function (a, b) { return a.value - b.value }); //sort to find element with lowest positon
             return namePos; //return that array. Namepos is an array of pos-spots, with pos being the positions of the items in the array
         }
-        
+
         //finds the . separateor to find the correct argument
         var posi = message.lastIndexOf('.');
-        if (posi != -1) { //if we found the .
-            sinusbot.chatChannel('found');
+        if (posi != -1) { //if we found the '.'
             var start3 = message.substring(0, posi); //playlist name
             var end = message.substring(posi); //the last few letters
 
@@ -165,7 +172,6 @@ registerPlugin({
 
             //song list functionality
             if ((end == '.songs') || (end == '.s')) {
-                sinsubot.chatChannel('found');
                 var playlistName = start3.substring(1);
                 playlistName = playlistName.toLowerCase();
 
@@ -223,9 +229,9 @@ registerPlugin({
                 return;
             }
 
-
+            
             //ARGUMENT COMMANDS GO HERE
-            var posiSpace = end.lastIndexOf(' ');
+        /*    var posiSpace = end.lastIndexOf(' ');
             if (posiSpace == -1)
                 return;
             var start4 = end.substring(0, posiSpace); //arg command
@@ -270,7 +276,7 @@ registerPlugin({
                 }
                 sinusbot.chatPrivate(ev.clientId, 'There is no playlist with this name');
                 return;
-            }
+            } */
         }
         else {
             var start = message.substring(0, 16); //'createplaylists '
@@ -314,4 +320,3 @@ registerPlugin({
         }
     });
 });
-
